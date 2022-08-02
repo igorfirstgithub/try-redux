@@ -2,11 +2,11 @@
 import "./App.css";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { increment, decrement, addMessage } from "./redux";
+import { increment, decrement } from "./redux/count";
+import { addMessage } from "./redux/messages";
 
 function App(props) {
-  const [input, setInput] = useState("qwe");
-  //const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
   function handleChange(event) {
     setInput(event.target.value);
@@ -15,6 +15,7 @@ function App(props) {
   function submit() {
     props.addMes(input);
     setInput("");
+    document.getElementById("inputLine").placeholder = "";
   }
 
   const todoList = props.messages.map((todo, index) => (
@@ -28,7 +29,12 @@ function App(props) {
       <button onClick={props.decCount}>-</button>
       <br />
       <br />
-      <input value={input} onChange={handleChange} />
+      <input
+        id="inputLine"
+        value={input}
+        onChange={handleChange}
+        placeholder="Enter what to do"
+      />
       <button onClick={submit}>Submit</button>
       <ul>{todoList}</ul>
     </div>
